@@ -61,7 +61,10 @@ CFLAGS = $(BASE_CFLAGS) $(ENV_CFLAGS)
 ifeq ($(CLANG_BUILD),1)
 	CXXFLAGS = $(BASE_CFLAGS) -std=gnu++0x -Wno-c++11-narrowing -Wno-dangling-else $(ENV_CXXFLAGS)
 else
-	CXXFLAGS = $(BASE_CFLAGS) -std=gnu++0x -fpermissive $(ENV_CXXFLAGS)
+        # !!! ABI COMPAT: -fabi-compat-version=2 is needed to generate the proper symbols for linking
+	CXXFLAGS = $(BASE_CFLAGS) -std=gnu++0x -fpermissive -fabi-compat-version=2 $(ENV_CXXFLAGS)
+        # Diagnostics coloring
+	CXXFLAGS += -fdiagnostics-color=always
 endif
 DEFINES += -DVPROF_LEVEL=1 -DGNUC -DNO_HOOK_MALLOC -DNO_MALLOC_OVERRIDE
 
@@ -80,32 +83,9 @@ COPY_DLL_TO_SRV = 0
 # http://linux.die.net/man/1/ld and http://fedoraproject.org/wiki/Releases/FeatureBuildId.http://fedoraproject.org/wiki/Releases/FeatureBuildId
 LDFLAGS += -Wl,--build-id
 
-#
-# If we should be running in a chroot, check to see if we are. If not, then prefix everything with the 
-# required chroot
-#
-ifdef MAKE_CHROOT
-	export STEAM_RUNTIME_PATH := /usr
-	ifneq ("$(SCHROOT_CHROOT_NAME)", "$(CHROOT_NAME)")
-        $(info '$(SCHROOT_CHROOT_NAME)' is not '$(CHROOT_NAME)')
-        $(error This makefile should be run from within a chroot. 'schroot --chroot $(CHROOT_NAME) -- $(MAKE) $(MAKEFLAGS)')  
-	endif
-	GCC_VER = -4.8
-	P4BIN = $(SRCROOT)/devtools/bin/linux/p4
-	CRYPTOPPDIR=ubuntu12_32_gcc48
-else ifeq ($(USE_VALVE_BINDIR),1)
-	# Using /valve/bin directory.
-	export STEAM_RUNTIME_PATH ?= /valve
-	GCC_VER = -4.6
-	P4BIN = p4
-	CRYPTOPPDIR=linux32
-else
-	# Not using chroot, use old steam-runtime. (gcc 4.6.3)
-	export STEAM_RUNTIME_PATH ?= /valve/steam-runtime
-	GCC_VER =
-	P4BIN = p4
-	CRYPTOPPDIR=ubuntu12_32
-endif
+GCC_VER =
+P4BIN = p4
+CRYPTOPPDIR=ubuntu12_32
 
 ifeq ($(TARGET_PLATFORM),linux64)
 	MARCH_TARGET = core2
@@ -133,13 +113,13 @@ endif
 CCACHE := $(SRCROOT)/devtools/bin/linux/ccache
 
 ifeq ($(origin AR), default)
-	AR = $(STEAM_RUNTIME_PATH)/bin/ar crs
+	AR = ar crs
 endif
 ifeq ($(origin CC), default)
-	CC = $(CCACHE) $(STEAM_RUNTIME_PATH)/bin/gcc$(GCC_VER)	
+	CC = $(CCACHE) gcc$(GCC_VER)	
 endif
 ifeq ($(origin CXX), default)
-	CXX = $(CCACHE) $(STEAM_RUNTIME_PATH)/bin/g++$(GCC_VER)
+	CXX = $(CCACHE) g++$(GCC_VER)
 endif
 
 # Support ccache with clang. Add -Qunused-arguments to avoid excessive warnings due to
@@ -171,8 +151,9 @@ else ifeq ($(GCC_VER),-4.8)
 endif
 
 WARN_FLAGS += -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-value -Wno-missing-field-initializers
-WARN_FLAGS += -Wno-sign-compare -Wno-reorder -Wno-invalid-offsetof -Wno-float-equal -Werror=return-type
+WARN_FLAGS += -Wno-sign-compare -Wno-reorder -Wno-invalid-offsetof -Wno-float-equal -Werror=return-type -Wno-narrowing
 WARN_FLAGS += -fdiagnostics-show-option -Wformat -Wformat-security
+WARN_FLAGS += -Wno-class-memaccess -Wno-unused-local-typedefs -Wno-ignored-attributes
 
 ifeq ($(TARGET_PLATFORM),linux64)
 	# nocona = pentium4 + 64bit + MMX, SSE, SSE2, SSE3 - no SSSE3 (that's three s's - added in core2)
