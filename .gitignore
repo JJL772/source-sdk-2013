@@ -54,3 +54,5 @@ config.cfg
 # shader files
 *.tmp
 
+*.project
+compile_commands.json
