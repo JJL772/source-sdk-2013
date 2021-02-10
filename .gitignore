@@ -56,3 +56,4 @@ config.cfg
 
 *.project
 compile_commands.json
+*_srv.so
