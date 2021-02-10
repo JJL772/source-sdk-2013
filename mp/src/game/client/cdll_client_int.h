@@ -16,6 +16,10 @@
 #include "cdll_int.h"
 #include "eiface.h"
 
+#ifdef _LINUX
+#include "appframework/ilaunchermgr.h"
+#endif 
+
 
 class IVModelRender;
 class IVEngineClient;

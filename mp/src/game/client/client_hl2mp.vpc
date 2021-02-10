@@ -112,6 +112,8 @@ $Project "Client (HL2MP)"
 			$File	"hl2\hud_zoom.cpp"
 			$File	"hl2\shieldproxy.cpp"
 			$File	"hl2\vgui_rootpanel_hl2.cpp"
+			$File	"s13c\s13c_int.cpp"
+			$File	"s13c\s13c_int.h"
 		}
 
 		$Folder	"HL2MP"

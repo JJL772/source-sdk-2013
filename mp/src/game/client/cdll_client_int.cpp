@@ -216,6 +216,10 @@ IEngineClientReplay *g_pEngineClientReplay = NULL;
 IReplaySystem *g_pReplay = NULL;
 #endif
 
+#ifdef _LINUX
+ILauncherMgr* g_pLauncherMgr = NULL;
+#endif 
+
 IHaptics* haptics = NULL;// NVNT haptics system interface singleton
 
 //=============================================================================
@@ -930,6 +934,11 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CreateInterfaceFn physi
 		return false;
 #ifndef _XBOX
 	if ( ( gamestatsuploader = (IUploadGameStats *)appSystemFactory( INTERFACEVERSION_UPLOADGAMESTATS, NULL )) == NULL )
+		return false;
+#endif
+
+#ifdef _LINUX
+	if ((g_pLauncherMgr = (ILauncherMgr*)appSystemFactory(SDLMGR_INTERFACE_VERSION, NULL)) == NULL)
 		return false;
 #endif
 
