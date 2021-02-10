@@ -1,0 +1,3 @@
+[submodule "mp/src/thirdparty/cgltf"]
+	path = mp/src/thirdparty/cgltf
+	url = https://github.com/jkuhlmann/cgltf
