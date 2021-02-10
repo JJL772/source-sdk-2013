@@ -1,0 +1,84 @@
+{
+    "configurations": [
+        {
+            "name": "Linux-Rel",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "VPC ",
+                "RAD_TELEMETRY_DISABLED ",
+                "NDEBUG ",
+                "GNUC ",
+                "POSIX ",
+                "COMPILER_GCC ",
+                "_DLL_EXT=.so",
+                "_LINUX ",
+                "LINUX ",
+                "POSIX ",
+                "_POSIX ",
+                "BINK_VIDEO ",
+                "GL_GLEXT_PROTOTYPES ",
+                "DX_TO_GL_ABSTRACTION ",
+                "USE_SDL ",
+                "DEV_BUILD ",
+                "FRAME_POINTER_OMISSION_DISABLED ",
+                "_EXTERNAL_DLL_EXT=.so",
+                "VPCGAMECAPS=HL2MP ",
+                "PROJECTDIR=/home/jeremy/Desktop/Projects/sdk2013/mp/src/raytrace ",
+                "_DLL_EXT=.so",
+                "SOURCE1=1",
+                "VPCGAME=hl2mp ",
+                "_LINUX=1",
+                "_POSIX=1",
+                "LINUX=1 ",
+                "POSIX=1 "
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-clang-x64"
+        },
+        {
+            "name": "Linux-Rel-Client",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "VPC ",
+                "RAD_TELEMETRY_DISABLED ",
+                "NDEBUG ",
+                "GNUC ",
+                "POSIX ",
+                "COMPILER_GCC ",
+                "_DLL_EXT=.so",
+                "_LINUX ",
+                "LINUX ",
+                "POSIX ",
+                "_POSIX ",
+                "BINK_VIDEO ",
+                "GL_GLEXT_PROTOTYPES ",
+                "DX_TO_GL_ABSTRACTION ",
+                "USE_SDL ",
+                "DEV_BUILD ",
+                "FRAME_POINTER_OMISSION_DISABLED ",
+                "_EXTERNAL_DLL_EXT=.so",
+                "VPCGAMECAPS=HL2MP ",
+                "PROJECTDIR=/home/jeremy/Desktop/Projects/sdk2013/mp/src/raytrace ",
+                "_DLL_EXT=.so",
+                "SOURCE1=1",
+                "VPCGAME=hl2mp ",
+                "_LINUX=1",
+                "_POSIX=1",
+                "LINUX=1",
+                "POSIX=1",
+                "CLIENT_DLL=1"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-clang-x64"
+        }
+    ],
+    "version": 4
+}

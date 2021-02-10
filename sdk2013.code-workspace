@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "root",
+			"path": "."
+		},
+		{
+			"name": "mp-game",
+			"path": "mp/game"
+		},
+		{
+			"name": "mp-src",
+			"path": "mp/src"
+		}
+	],
+	"settings": {}
+}
